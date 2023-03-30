@@ -1,5 +1,9 @@
+
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=jiongjiongJOJO&show_icons=true&role=OWNER,ORGANIZATION_MEMBER,COLLABORATOR&locale=cn&layout=compact)]()
+[![Top Langs](https://github-readme-stats-one-bice.vercel.app/api?username=jiongjiongJOJO&show_icons=true&count_private=true&locale=cn)]()
+
 哈喽~
-<img align="right" src="https://github-readme-stats-one-bice.vercel.app/api?username=jiongjiongJOJO&show_icons=true&include_all_commits=true&count_private=true&role=OWNER,ORGANIZATION_MEMBER,COLLABORATOR&locale=cn" />
+
 
 # 👨‍💻 我是谁
 囧囧JOJO，一名普通的本科生，没什么爱好，闲着没事就喜欢瞎捯饬。
