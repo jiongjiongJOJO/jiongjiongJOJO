@@ -1,4 +1,10 @@
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./dist/github-snake-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="./dist/github-snake.svg" />
+  <img alt="github-snake" src="github-snake.svg" />
+</picture>
+
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=jiongjiongJOJO&show_icons=true&role=OWNER,ORGANIZATION_MEMBER,COLLABORATOR&locale=cn&layout=compact)]()
 [![Top Langs](https://github-readme-stats-one-bice.vercel.app/api?username=jiongjiongJOJO&show_icons=true&count_private=true&locale=cn)]()
 
