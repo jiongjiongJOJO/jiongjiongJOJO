@@ -9,21 +9,34 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2.3.4
+
+      - name: Check Commits
+        id: check-commits
+        run: |
+          today=$(date -u +"%Y-%m-%dT00:00:00Z")
+          commits=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/${{ github.repository_owner }}/${{ github.event.repository.name }}/commits?since=$today")
+          if [ "$(echo $commits | jq length)" -eq "0" ]; then
+            echo "今天未发现新的commit，暂时不更新Snake"
+            echo "::set-output name=has-commits::false"
+          else
+            echo "发现一天内有新的commit，更新Snake"
+            echo "::set-output name=has-commits::true"
+          fi
+
       - name: Generate Snake
+        if: steps.check-commits.outputs.has-commits == 'true'
         uses: Platane/snk@v3
         with:
-          # github user name to read the contribution graph from (**required**)
-          # using action context var `github.repository_owner` or specified user
           github_user_name: ${{ github.repository_owner }}
           outputs: |
             dist/github-snake.svg
             dist/github-snake-dark.svg?palette=github-dark
             dist/ocean.gif?color_snake=orange&color_dots=#bfd6f6,#8dbdff,#64a1f4,#4b91f1,#3c7dd9
-
         env:
-          # a github token is required to fetch the contribution calendar from github API
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Push to GitHub
+        if: steps.check-commits.outputs.has-commits == 'true'
         uses: EndBug/add-and-commit@v7.2.1
         with:
           branch: main
