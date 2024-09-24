@@ -13,13 +13,22 @@ jobs:
       - name: Check Commits
         id: check-commits
         run: |
+          # 获取昨天的时间戳
           yesterday=$(date -u -d "yesterday" +"%Y-%m-%dT00:00:00Z")
-          commits=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/${{ github.repository_owner }}/${{ github.event.repository.name }}/commits?since=$yesterday")
-          if [ "$(echo $commits | jq length)" -eq "0" ]; then
-            echo "前一天和今天未发现新的commit，暂时不更新Snake"
+          
+          # 获取昨天到现在的 commits
+          commits=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository_owner }}/${{ github.event.repository.name }}/commits?since=$yesterday")
+
+          # 过滤掉 commit message 为 'Generate Contribution Snake' 的 commit
+          filtered_commits=$(echo "$commits" | jq '[.[] | select(.commit.message != "Generate Contribution Snake")]')
+
+          # 判断是否有其他 commit
+          if [ "$(echo $filtered_commits | jq length)" -eq "0" ]; then
+            echo "前一天和今天未发现新的commit，或仅有'Generate Contribution Snake'的commit，暂时不更新Snake"
             echo "::set-output name=has-commits::false"
           else
-            echo "发现前一天或今天有新的commit，更新Snake"
+            echo "发现前一天或今天有其他新的commit，更新Snake"
             echo "::set-output name=has-commits::true"
           fi
 
