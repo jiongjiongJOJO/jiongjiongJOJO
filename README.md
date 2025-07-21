@@ -1,6 +1,9 @@
+<!--
 <p align="center"> 
   <img src="https://profile-counter.glitch.me/jiongjiongJOJO/count.svg" />
 </p>
+-->
+
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./dist/github-snake-dark.svg" />
